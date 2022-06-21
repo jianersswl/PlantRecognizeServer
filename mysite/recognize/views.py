@@ -90,3 +90,17 @@ def uploadImage(request):
     respon = json.dumps(recognizeImage(file_path))
     
     return HttpResponse(respon)
+
+def get(request):
+    print("getBody: {}".format(request.GET))
+    dict = {'code':200, 
+            'msg':'识别成功',
+            'PlantInfo':{'PlantResultURL':'static/recognize/flower/yueji.jpg',
+                                   'leaf': '123',
+                                  'stalk': '124',
+                                  'fruit': '125',
+                                    'age': '126',
+            }
+    }
+    respon = json.dumps(dict)
+    return HttpResponse(respon)
