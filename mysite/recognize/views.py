@@ -4,6 +4,8 @@ import json
 import cv2
 import requests
 import time
+import os
+from .yolov5.detect import detectByYolov5
 
 ### 保证算法的输入图像格式为(224,224,3)
 def preprocess(image):
@@ -31,7 +33,7 @@ def downloadImg(url):
 
 def resultHandling(image, image_name):
     ### save result as image
-    cv2.imwrite("static/flower/"+image_name, image)
+    cv2.imwrite("static/recognize/flower/"+image_name, image)
 
     dict = {'code':200, 
             'msg':'识别成功',
@@ -61,10 +63,17 @@ def recognizeImage(image_path):
     image_name = image_path.split('/')[-1]
     ### image preprocessing
     image = preprocess(image)
+
     ### image recognize
-    '''
-        to do
-    '''
+    ### cmd method
+    # url = image_path
+    # cmd = r'python D:\pyproject\yolov5-django\detect.py --source ' + url + ' --classes 0 --exist-ok'
+    # text = os.popen(cmd).readlines()
+    # print(text)
+
+    # inline method
+    detectByYolov5(source=image_path)
+
     return resultHandling(image, image_name)
 
 def uploadUrl(request):
@@ -80,7 +89,7 @@ def uploadImage(request):
     file_obj = request.FILES.get("image")
 
     print("file_obj", file_obj.name)
-    file_path = 'static/image/' + file_obj.name
+    file_path = 'static/recognize/image/' + file_obj.name
     print("file_path", file_path)
  
     with open(file_path, 'wb+') as f:
