@@ -248,7 +248,7 @@ def parse_opt():
 
 def parse_opt_hand(source):
     opt = {
-            'weights': 'yolov5s.pt', 
+            'weights': str(ROOT) + '\\yolov5s.pt', 
             'source': source, 
             'data': str(ROOT) + '\\data\\coco128.yaml', 
             'imgsz': [640, 640], 
@@ -283,6 +283,5 @@ def main(opt):
 
 def detectByYolov5(source):
     print(source)
-    source = 'static/recognize/image/yueji.jpeg'
     opt = parse_opt_hand(source)
     main(opt)
