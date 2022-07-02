@@ -267,8 +267,8 @@ def parse_opt_hand(source):
             'visualize': False, 
             'update': False, 
             'project': str(ROOT) + '\\..\\..\\static\\recognize\\detect', 
-            'name': 'exp',
-            'exist_ok': False, 
+            'name': str(Path(source).name.split('.')[0]),
+            'exist_ok': True, 
             'line_thickness': 3, 
             'hide_labels': False, 
             'hide_conf': False, 
@@ -282,6 +282,7 @@ def main(opt):
     run(**opt)
 
 def detectByYolov5(source):
-    print(source)
+    print("****************************************")
+    print(Path(source).name.split('.')[0])
     opt = parse_opt_hand(source)
     main(opt)

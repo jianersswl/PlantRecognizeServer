@@ -31,13 +31,13 @@ def downloadImg(url):
     del r
     return image_name
 
-def resultHandling(image, image_name):
+def resultHandling(image_name):
     ### save result as image
-    cv2.imwrite("static/recognize/flower/"+image_name, image)
+    # cv2.imwrite("static/recognize/handle/" + image_name, image)
 
     dict = {'code':200, 
             'msg':'识别成功',
-            'PlantInfo':{'PlantResultURL':'static/flower/'+image_name,
+            'PlantInfo':{'PlantResultURL':'static/recognize/detect/'+image_name.split('.')[0] + '/' + image_name,
                                    'leaf': '123',
                                   'stalk': '124',
                                   'fruit': '125',
@@ -74,7 +74,7 @@ def recognizeImage(image_path):
     # inline method
     detectByYolov5(source=image_path)
 
-    return resultHandling(image, image_name)
+    return resultHandling(image_name)
 
 def uploadUrl(request):
     print("postBody: {}".format(request.POST))
